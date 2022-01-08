@@ -38,37 +38,35 @@ public class ChatController implements Initializable {
             //make socket at client`s side
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-            Thread thread = new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (true) {
                         try {
                             String str = in.readUTF();
-                        if (str.equals("end")) {
+                            System.out.println("Client get from server "+str);
+                        if (str.equals("Echo: end")) {
                             break;
                         }
-                        txt_area.appendText(str+"/n");
+                        txt_area.appendText(str+"\n");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        finally {
+                            try {
+                                socket.close();
+                                System.out.println("Client is disconnected from server");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
-            });
+            }).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        finally {
-            try {
-                socket.close();
-                System.out.println("Client is disconnected from server");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
     }
-
     public void sendMessage(ActionEvent actionEvent) {
         try {
             out.writeUTF(txt_field.getText());

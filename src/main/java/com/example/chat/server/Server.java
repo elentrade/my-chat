@@ -11,8 +11,6 @@ import java.util.Scanner;
 public class Server {
     final static int PORT = 8189;
     public static void main(String[] args) {
-
-
         try(ServerSocket server = new ServerSocket(PORT)) {
             System.out.println("Server is connected");
             try (Socket socket = server.accept()){
@@ -32,6 +30,5 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
