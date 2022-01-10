@@ -28,8 +28,6 @@ public class ChatController implements Initializable {
     private Socket socket;
     DataInputStream in;
     DataOutputStream out;
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //content of this block will be done after drawing all graphics elements
