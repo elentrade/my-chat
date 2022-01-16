@@ -30,22 +30,32 @@ public class ClientHandler {
                                 System.out.println("Client is disconnected");
                                 break;
                             }
-                            System.out.println("Client: " + str);
-                            out.writeUTF("echo: " + str);
+                            server.broadcastMessage(str);
+                          //  System.out.println("Client: " + str);
+                          //  out.writeUTF("echo: " + str); moved to sendMessage()
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
                         try {
-                            socket.close();
+                           socket.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
             }).start();
+
         }
         catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    void sendMessage(String msg){
+        try {
+            out.writeUTF("echo: " + msg);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -39,24 +39,26 @@ public class ChatController implements Initializable {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    try {
                     while (true) {
-                        try {
+
                             String str = in.readUTF();
                             System.out.println("Client get from server "+str);
                         if (str.equals("Echo: end")) {
                             break;
                         }
                         txt_area.appendText(str+"\n");
+
+                    }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        try {
+                            socket.close();
+                            System.out.println("Client is disconnected from server");
                         } catch (IOException e) {
                             e.printStackTrace();
-                        }
-                        finally {
-                            try {
-                                socket.close();
-                                System.out.println("Client is disconnected from server");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                         }
                     }
                 }

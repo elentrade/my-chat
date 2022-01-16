@@ -24,13 +24,19 @@ clients = new Vector<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
-//finally {
-//            try {
-//                server.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+finally {
+            try {
+                server.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+    public void broadcastMessage(String msg){
+        for (ClientHandler client :clients)
+        {
+           client.sendMessage(msg);
+        }
     }
 }
